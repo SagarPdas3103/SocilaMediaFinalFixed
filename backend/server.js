@@ -12,7 +12,6 @@ import path from "path"
 dotenv.config();
 
 connectDB();
-job.start();
 
 const PORT = process.env.PORT || 5000
 const __dirname = path.resolve();
@@ -22,7 +21,7 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
-
+// D: \MERN\SocialMedia\backend\server.js
 //Middlewares
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: false }));
