@@ -63,247 +63,137 @@ export default function UpdateProfilePage() {
     }
   };
 
-  // return (
-  //   <form onSubmit={handleSubmit}>
-  //     <Flex align={"center"} justify={"center"}>
-  //       <Stack
-  //         spacing={4}
-  //         w={"full"}
-  //         maxW={"md"}
-  //         bg={useColorModeValue("white", "gray.700")}
-  //         rounded={"xl"}
-  //         boxShadow={"lg"}
-  //         p={5}
-  //       >
-  //         <Heading
-  //           lineHeight={1.1}
-  //           textAlign={"center"}
-  //           fontSize={{ base: "2xl", sm: "2xl" }}
-  //         >
-  //           Edit Profile
-  //         </Heading>
-
-  //         <FormControl id="userName">
-  //           <Stack direction={["column", "row"]} spacing={6}>
-  //             <Center>
-  //               <Avatar
-  //                 size="xl"
-  //                 boxShadow={"md"}
-  //                 src={imgUrl || user.profilePic}
-  //               />
-  //             </Center>
-  //             <Center w="full">
-  //               <Button w="full" onClick={() => fileRef.current.click()}>
-  //                 Change Avatar
-  //               </Button>
-  //               <Input
-  //                 type="file"
-  //                 hidden
-  //                 ref={fileRef}
-  //                 onChange={handleImageChange}
-  //               />
-  //             </Center>
-  //           </Stack>
-  //         </FormControl>
-
-  //         <FormControl>
-  //           <FormLabel>Full name</FormLabel>
-  //           <Input
-  //             placeholder="Fullname"
-  //             value={inputs.name}
-  //             onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
-  //             _placeholder={{ color: "gray.500" }}
-  //             type="text"
-  //           />
-  //         </FormControl>
-
-  //         <FormControl>
-  //           <FormLabel>User name</FormLabel>
-  //           <Input
-  //             placeholder="johndoe"
-  //             value={inputs.username}
-  //             onChange={(e) =>
-  //               setInputs({ ...inputs, username: e.target.value })
-  //             }
-  //             _placeholder={{ color: "gray.500" }}
-  //             type="text"
-  //           />
-  //         </FormControl>
-
-  //         <FormControl>
-  //           <FormLabel>Email address</FormLabel>
-  //           <Input
-  //             placeholder="email@example.com"
-  //             value={inputs.email}
-  //             onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
-  //             _placeholder={{ color: "gray.500" }}
-  //             type="email"
-  //           />
-  //         </FormControl>
-
-  //         <FormControl>
-  //           <FormLabel>Bio </FormLabel>
-  //           <Input
-  //             placeholder="Bio"
-  //             value={inputs.bio}
-  //             onChange={(e) => setInputs({ ...inputs, bio: e.target.value })}
-  //             _placeholder={{ color: "gray.500" }}
-  //             type="text"
-  //           />
-  //         </FormControl>
-
-  //         <FormControl>
-  //           <FormLabel>Password</FormLabel>
-  //           <Input
-  //             placeholder="password"
-  //             value={inputs.password}
-  //             onChange={(e) =>
-  //               setInputs({ ...inputs, password: e.target.value })
-  //             }
-  //             _placeholder={{ color: "gray.500" }}
-  //             type="password"
-  //           />
-  //         </FormControl>
-
-  //         <Stack spacing={6} direction={["column", "row"]}>
-  //           <Button
-  //             bg={"red.400"}
-  //             color={"white"}
-  //             w="full"
-  //             _hover={{
-  //               bg: "red.500",
-  //             }}
-  //           >
-  //             Cancel
-  //           </Button>
-  //           <Button
-  //             bg={"green.400"}
-  //             color={"white"}
-  //             w="full"
-  //             _hover={{
-  //               bg: "green.500",
-  //             }}
-  //             type="submit"
-  //             isLoading={updating}
-  //           >
-  //             Submit
-  //           </Button>
-  //         </Stack>
-  //       </Stack>
-  //     </Flex>
-  //   </form>
-  // );
-
-
   return (
-  <form onSubmit={handleSubmit}>
-    <Flex minH="100vh" align="center" justify="center">
-      <Stack
-        spacing={6}
-        w="full"
-        maxW="lg"
-        p={8}
-        borderRadius="2xl"
-        backdropFilter="blur(20px)"
-        bg="rgba(255,255,255,0.05)"
-        boxShadow="0 10px 40px rgba(0,0,0,0.6)"
-      >
-        {/* Heading */}
-        <Heading textAlign="center">Edit Profile</Heading>
-
-        {/* Avatar Section */}
-        <Flex direction="column" align="center" gap={3}>
-          <Avatar
-            size="2xl"
-            src={imgUrl || user.profilePic}
-            border="3px solid #22c55e"
-            boxShadow="0 0 20px rgba(34,197,94,0.6)"
-          />
-
-          <Button size="sm" onClick={() => fileRef.current.click()}>
-            Change Avatar
-          </Button>
-
-          <Input
-            type="file"
-            hidden
-            ref={fileRef}
-            onChange={handleImageChange}
-          />
-        </Flex>
-
-        {/* Inputs */}
-        <FormControl>
-          <FormLabel>Full Name</FormLabel>
-          <Input
-            value={inputs.name}
-            onChange={(e) =>
-              setInputs({ ...inputs, name: e.target.value })
-            }
-          />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel>Username</FormLabel>
-          <Input
-            value={inputs.username}
-            onChange={(e) =>
-              setInputs({ ...inputs, username: e.target.value })
-            }
-          />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel>Email</FormLabel>
-          <Input
-            value={inputs.email}
-            onChange={(e) =>
-              setInputs({ ...inputs, email: e.target.value })
-            }
-          />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel>Bio</FormLabel>
-          <Input
-            value={inputs.bio}
-            onChange={(e) =>
-              setInputs({ ...inputs, bio: e.target.value })
-            }
-          />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel>Password</FormLabel>
-          <Input
-            type="password"
-            value={inputs.password}
-            onChange={(e) =>
-              setInputs({ ...inputs, password: e.target.value })
-            }
-          />
-        </FormControl>
-
-        {/* Buttons */}
-        <Flex gap={4}>
-          <Button w="full" variant="secondary">
-            Cancel
-          </Button>
-
-          <Button
-            w="full"
-            variant="primary"
-            type="submit"
-            isLoading={updating}
+    <form onSubmit={handleSubmit}>
+      <Flex align={"center"} justify={"center"}>
+        <Stack
+          spacing={4}
+          w={"full"}
+          maxW={"md"}
+          bg={useColorModeValue("white", "gray.700")}
+          rounded={"xl"}
+          boxShadow={"lg"}
+          p={5}
+        >
+          <Heading
+            lineHeight={1.1}
+            textAlign={"center"}
+            fontSize={{ base: "2xl", sm: "2xl" }}
           >
-            Save Changes
-          </Button>
-        </Flex>
-      </Stack>
-    </Flex>
-  </form>
-);
+            Edit Profile
+          </Heading>
+
+          <FormControl id="userName">
+            <Stack direction={["column", "row"]} spacing={6}>
+              <Center>
+                <Avatar
+                  size="xl"
+                  boxShadow={"md"}
+                  src={imgUrl || user.profilePic}
+                />
+              </Center>
+              <Center w="full">
+                <Button w="full" onClick={() => fileRef.current.click()}>
+                  Change Avatar
+                </Button>
+                <Input
+                  type="file"
+                  hidden
+                  ref={fileRef}
+                  onChange={handleImageChange}
+                />
+              </Center>
+            </Stack>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Full name</FormLabel>
+            <Input
+              placeholder="Fullname"
+              value={inputs.name}
+              onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
+              _placeholder={{ color: "gray.500" }}
+              type="text"
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>User name</FormLabel>
+            <Input
+              placeholder="johndoe"
+              value={inputs.username}
+              onChange={(e) =>
+                setInputs({ ...inputs, username: e.target.value })
+              }
+              _placeholder={{ color: "gray.500" }}
+              type="text"
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Email address</FormLabel>
+            <Input
+              placeholder="email@example.com"
+              value={inputs.email}
+              onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+              _placeholder={{ color: "gray.500" }}
+              type="email"
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Bio </FormLabel>
+            <Input
+              placeholder="Bio"
+              value={inputs.bio}
+              onChange={(e) => setInputs({ ...inputs, bio: e.target.value })}
+              _placeholder={{ color: "gray.500" }}
+              type="text"
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Password</FormLabel>
+            <Input
+              placeholder="password"
+              value={inputs.password}
+              onChange={(e) =>
+                setInputs({ ...inputs, password: e.target.value })
+              }
+              _placeholder={{ color: "gray.500" }}
+              type="password"
+            />
+          </FormControl>
+
+          <Stack spacing={6} direction={["column", "row"]}>
+            <Button
+              bg={"red.400"}
+              color={"white"}
+              w="full"
+              _hover={{
+                bg: "red.500",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              bg={"green.400"}
+              color={"white"}
+              w="full"
+              _hover={{
+                bg: "green.500",
+              }}
+              type="submit"
+              isLoading={updating}
+            >
+              Submit
+            </Button>
+          </Stack>
+        </Stack>
+      </Flex>
+    </form>
+  );
 
 
-  
+ 
 }
