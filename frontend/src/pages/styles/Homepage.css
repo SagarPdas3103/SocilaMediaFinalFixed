@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── Custom keyframes Tailwind can't ship natively ── */
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes post-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sidebar-enter {
+  from { opacity: 0; transform: translateX(18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1;   transform: scale(1);   }
+  50%       { opacity: 0.4; transform: scale(0.65); }
+}
+
+@keyframes float-blob {
+  0%, 100% { transform: translate(0, 0) scale(1);    }
+  33%       { transform: translate(30px, -20px) scale(1.05); }
+  66%       { transform: translate(-20px, 15px) scale(0.97); }
+}
+
+/* ── Utility classes ── */
+
+.font-syne { font-family: 'Syne', sans-serif; }
+.font-dm   { font-family: 'DM Sans', sans-serif; }
+
+/* Shimmer skeleton */
+.sk-shimmer {
+  background: linear-gradient(
+    90deg,
+    #1e293b 25%,
+    #2d3f5a 50%,
+    #1e293b 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* Post stagger */
+.post-animate {
+  opacity: 0;
+  animation: post-enter 0.45s ease forwards;
+}
+
+/* Sidebar */
+.sidebar-animate {
+  opacity: 0;
+  animation: sidebar-enter 0.55s 0.25s ease forwards;
+}
+
+/* Pulsing live dot */
+.live-dot {
+  animation: pulse-dot 2.2s ease-in-out infinite;
+}
+
+/* Background blobs */
+.blob {
+  animation: float-blob 12s ease-in-out infinite;
+}
+.blob-2 {
+  animation: float-blob 16s 4s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar        { width: 3px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: #1e293b; border-radius: 99px; }
