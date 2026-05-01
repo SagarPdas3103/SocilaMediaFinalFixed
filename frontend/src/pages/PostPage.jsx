@@ -1,8 +1,11 @@
+// 
+
+
+
 import {
   Avatar,
   Box,
   Button,
-  // Button,
   Divider,
   Flex,
   Image,
@@ -39,7 +42,6 @@ const PostPage = () => {
           showToast("Error", data.error, "error");
           return;
         }
-
         setPosts([data]);
         console.log(data);
       } catch (error) {
@@ -52,7 +54,6 @@ const PostPage = () => {
   const handleDeletePost = async () => {
     try {
       if (!window.confirm("Are You sure want to delete this post?.")) return;
-
       const res = await fetch(`/api/posts/${currentPost._id}`, {
         method: "DELETE",
       });
@@ -61,7 +62,6 @@ const PostPage = () => {
         showToast("Error", data.message, "error");
         return;
       }
-
       showToast("Success", "Post Deleted Successfully 😁", "success");
       navigate(`/${user.username}`);
     } catch (error) {
@@ -69,79 +69,131 @@ const PostPage = () => {
     }
   };
 
-  if (!user && loading) {
+  // ✅ FIXED: was (!user && loading) — crashed when loading done but user still null
+  if (!user || loading) {
     return (
-      <Flex justifyContent={"center"}>
-        <Spinner size={"xl"} />
-      </Flex>
+      <div className="flex justify-center items-center min-h-[40vh]">
+        <Spinner size="xl" color="green.400" thickness="3px" />
+      </div>
     );
   }
+
+  // ✅ FIXED: guard if post not loaded yet
   if (!currentPost) return null;
+
   return (
-    <>
-      <Flex>
-        <Flex w={"full"} alignItems={"center"} gap={3}>
-          <Avatar src={user.profilePic} size={"md"} name="mark zuckerberg" />
-          <Flex>
-            <Text fontSize={"sm"} fontWeight={"bold"}>
+    <div className="max-w-2xl mx-auto px-4 py-6">
+
+      {/* ── Post header ── */}
+      <div className="flex items-center justify-between mb-4">
+
+        {/* Left: avatar + username */}
+        <div className="flex items-center gap-3">
+          <Avatar
+            src={user.profilePic}
+            size="md"
+            name={user.username}
+            className="ring-2 ring-emerald-400/20"
+          />
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-bold text-slate-100 font-syne">
               {user.username}
-            </Text>
-            <Image src="/verified.png" w="4" h={4} ml={4} />
-          </Flex>
-        </Flex>
+            </span>
+            <Image src="/verified.png" w="4" h="4" />
+          </div>
+        </div>
 
-        <Flex gap={4} alignItems={"center"}>
-          <Text fontSize={"xs"} w={36} textAlign={"right"} color={"gray.light"}>
+        {/* Right: timestamp + delete */}
+        <div className="flex items-center gap-4">
+          <span className="text-xs text-slate-500">
             {formatDistanceToNow(new Date(currentPost.createdAt))} ago
-          </Text>
+          </span>
           {currentUser?._id === user._id && (
-            <DeleteIcon
-              size={20}
-              cursor={"pointer"}
+            <button
               onClick={handleDeletePost}
-            />
+              className="
+                p-2 rounded-lg text-slate-500
+                hover:text-red-400 hover:bg-red-400/10
+                transition-all duration-200
+              "
+              title="Delete post"
+            >
+              <DeleteIcon boxSize={4} />
+            </button>
           )}
-        </Flex>
-      </Flex>
-      <Text my={3}>{currentPost.text}</Text>
+        </div>
+      </div>
 
+      {/* ── Post text ── */}
+      <p className="text-slate-200 text-sm leading-relaxed mb-4 font-dm">
+        {currentPost.text}
+      </p>
+
+      {/* ── Post image ── */}
       {currentPost.img && (
-        <Box
-          borderRadius={6}
-          overflow={"hidden"}
-          border={"1px solid"}
-          borderColor={"gray.light"}
-        >
-          <Image src={currentPost.img} w={"full"} />
-        </Box>
+        <div className="
+          rounded-xl overflow-hidden mb-4
+          border border-white/[0.07]
+          shadow-[0_4px_24px_rgba(0,0,0,0.4)]
+        ">
+          <Image
+            src={currentPost.img}
+            w="full"
+            className="object-cover max-h-[500px] w-full"
+          />
+        </div>
       )}
 
-      <Flex gap={3} my={3}>
+      {/* ── Actions (like, comment, share) ── */}
+      <div className="flex gap-3 my-3">
         <Actions post={currentPost} />
-      </Flex>
+      </div>
 
-      <Divider my={3} />
+      {/* ── Divider ── */}
+      <div className="border-t border-white/[0.06] my-4" />
 
-      <Flex justifyContent={"space-between"}>
-        <Flex gap={2} alignItems={"center"}>
-          <Text fontSize={"2xl"}>👏</Text>
-          <Text color={"gray.light"}>Get the app to like, reply and post.</Text>
-        </Flex>
-        <Button>Get</Button>
-      </Flex>
-      <Divider my={4} />
+      {/* ── App promo banner ── */}
+      <div className="
+        flex items-center justify-between
+        px-4 py-3 rounded-xl
+        bg-slate-900/60 border border-white/[0.06]
+        backdrop-blur-md
+      ">
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">👏</span>
+          <span className="text-xs text-slate-400 font-dm">
+            Get the app to like, reply and post.
+          </span>
+        </div>
+        <button className="
+          font-syne text-xs font-bold tracking-wide
+          px-4 py-1.5 rounded-full
+          bg-emerald-400/10 border border-emerald-400/25 text-emerald-400
+          hover:bg-emerald-400/20 hover:shadow-[0_0_16px_rgba(52,211,153,0.2)]
+          transition-all duration-200
+        ">
+          Get
+        </button>
+      </div>
 
-      {currentPost.replies.map((reply) => (
-        <Comment
-          key={reply._id}
-          reply={reply}
-          lastReply={
-            reply._id ===
-            currentPost.replies[currentPost.replies.length - 1]._id
-          }
-        />
-      ))}
-    </>
+      {/* ── Divider ── */}
+      <div className="border-t border-white/[0.06] my-4" />
+
+      {/* ── Comments ── */}
+      <div className="flex flex-col">
+        {currentPost.replies.map((reply) => (
+          <Comment
+            key={reply._id}
+            reply={reply}
+            lastReply={
+              reply._id ===
+              currentPost.replies[currentPost.replies.length - 1]._id
+            }
+          />
+        ))}
+      </div>
+
+    </div>
   );
 };
 
