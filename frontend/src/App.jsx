@@ -10,7 +10,9 @@ import userAtom from "./atoms/userAtom";
 import UpdateProfilePage from "./pages/UpdateProfilePage";
 import CreatePost from "./components/CreatePost";
 import ChatPage from "./pages/ChatPage";
-import SettingPage from "./pages/SettingPage";
+// import SettingPage from "./pages/SettingPage";
+import SettingPage from "./pages/SettsfdsingPage";
+
 
 function App() {
   const user = useRecoilValue(userAtom);
